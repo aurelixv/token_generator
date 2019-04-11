@@ -34,10 +34,7 @@ def insert(database, content):
     database[content[0]] = {'senha_semente':hashed_seed, 'senha_local':hashed_password, 'salt':salt}
 
 def verify_password(password, hashed_password, salt):
-    print(password)
-    print(salt)
     password = hash_password(password, salt)
-    print(password)
     if password == hashed_password:
         return 1
     return 0
