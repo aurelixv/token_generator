@@ -61,8 +61,7 @@ if len(args) == 2:
                 if old_time != new_time:
                     print(ha.generate_tokens((database[username])['senha_semente']))
                     old_time = new_time
-                time.sleep(5)
-                
+                time.sleep(1)     
         else:
             print('Falha na autenticacao.')
     sys.exit()

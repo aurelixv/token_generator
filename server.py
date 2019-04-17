@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+from datetime import datetime
 import hashing_algorithms as ha
 import database as db
 
@@ -43,5 +44,17 @@ if len(args) == 1:
     if username not in database:
         print('Usuario nao cadastrado.')
     else:
-        print(ha.generate_tokens((database[username])['senha_semente']))
+        tokens = ha.generate_tokens((database[username])['senha_semente'])
+        old_time = datetime.now().strftime('%H:%M')
+        while(True):
+            token = input('Digite o token: ')
+            new_time = datetime.now().strftime('%H:%M')
+            if old_time != new_time:
+                tokens = ha.generate_tokens((database[username])['senha_semente'])
+                old_time = new_time
+            if token in tokens:
+                tokens = tokens[:tokens.index(token)]
+                print('Token valido.')
+            else:
+                print('Token invalido.')
     sys.exit()
