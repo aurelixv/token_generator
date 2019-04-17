@@ -54,16 +54,14 @@ if len(args) == 2:
         if ha.verify_password(password, (database[username])['senha_local'], (database[username])['salt']):
             print('Usuario autenticado com sucesso.')
             print('Gerando tokens...')
-            tokens = ha.generate_tokens((database[username])['senha_semente']).reverse()
+            print(ha.generate_tokens((database[username])['senha_semente']))
             old_time = datetime.now().strftime('%H:%M')
             while(True):
-                for token in tokens.reverse():
-                    print(token)
-                    input()
-                while old_time == datetime.now().strftime('%H:%M'):
-                    time.sleep(1)     
-                tokens = ha.generate_tokens((database[username])['senha_semente']).reverse()
-                old_time = datetime.now().strftime('%H:%M')
+                new_time = datetime.now().strftime('%H:%M')
+                if old_time != new_time:
+                    print(ha.generate_tokens((database[username])['senha_semente']))
+                    old_time = new_time
+                time.sleep(1)     
         else:
             print('Falha na autenticacao.')
     sys.exit()
